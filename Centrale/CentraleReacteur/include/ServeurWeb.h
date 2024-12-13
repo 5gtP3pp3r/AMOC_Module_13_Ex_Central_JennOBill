@@ -12,4 +12,6 @@ class ServeurWeb {
     void tick();
     bool getStatus();
     void handleRequetePut();
+    String deserialiserRequete(String const& p_requete);
+    String serialiserReponse(String p_reponse);
 };
