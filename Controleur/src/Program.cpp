@@ -82,3 +82,5 @@ void Program::connexionReseau() {
     }
   }  
 }
+
+// reste à implémenter Terminal.h/cpp
