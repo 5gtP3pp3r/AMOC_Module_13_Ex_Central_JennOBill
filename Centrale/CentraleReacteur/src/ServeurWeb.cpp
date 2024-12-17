@@ -1,5 +1,6 @@
 #include "ServeurWeb.h"
 #include <WebServer.h>
+#include <ArduinoJson.h>
 
 ServeurWeb::ServeurWeb(CoeurReacteur* p_coeurReacteur) : m_coeurReacteur(p_coeurReacteur){
     this->m_webServer = new WebServer();
@@ -10,9 +11,6 @@ ServeurWeb::ServeurWeb(CoeurReacteur* p_coeurReacteur) : m_coeurReacteur(p_coeur
                         [this]() {this->handleRequetePut();});
 }
 
-// String json = this->m_webServer->arg("plain");
-// InformationActionneur* ia = deserialiserInformationActionneur(json);
-
 void ServeurWeb::tick(){
     this->m_webServer->handleClient();
 }
@@ -21,7 +19,47 @@ bool ServeurWeb::getStatus(){
     return this->m_coeurReacteur->getStatut();
 }
 
- void ServeurWeb::handleRequetePut(){
+String ServeurWeb::deserialiserRequete(String const& p_requete) {
+  DynamicJsonDocument doc(256);
+  String resultat = "";
 
+  DeserializationError erreur = deserializeJson(doc, p_requete);
+
+  if (!erreur) {
+    resultat = doc["etat"].as<String>();
+  }
+
+  return resultat;
+}
+
+String ServeurWeb::serialiserReponse(String const& p_reponse) {
+  DynamicJsonDocument doc(256);
+  char json[256];
+
+  doc["etat"] = p_reponse;
+
+  serializeJson(doc, json);
+
+  return json;
+}
+
+ void ServeurWeb::handleRequetePut(){
+    String requeteJson = this->m_webServer->arg("plain");
+    String requete = deserialiserRequete(requeteJson);
+
+    if(requete.isEmpty() || 
+       (requete != "actif" && 
+       requete!= "repos")) {
+       
+       this->m_webServer->send(400,"text/plain","La requrequête ne respecte pas le format.");
+    }else{
+        if(requete== "actif"){
+            this->m_coeurReacteur->activer();
+        }
+        else{
+            this->m_coeurReacteur->desactiver();
+        }
+        this->m_webServer->send(200,"text/json",serialiserReponse(requete));
+    }
  }
 
