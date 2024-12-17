@@ -1,3 +1,4 @@
+#pragma once
 #include "DEL.h"
 
 class CoeurReacteur
