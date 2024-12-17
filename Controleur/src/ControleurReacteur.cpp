@@ -11,7 +11,8 @@ ControleurReacteur::ControleurReacteur(
         m_intervalMiseAJour(p_intervalMiseAJour) { ; }
 
 String ControleurReacteur::getEtatReacteur() const {
-    return m_etatReacteur.substring(9,14);
+    StaticJsonDocument<128> document;
+    return document["etat"].as<String>();
 }
 
 void ControleurReacteur::getEtatReacteurAPI() {
