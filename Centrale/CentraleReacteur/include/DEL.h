@@ -3,11 +3,11 @@
 
 class DEL{
  public:
-  DEL(int p_pin);
+  DEL(uint8_t p_pin);
 
   virtual void allumer();
   virtual void eteindre();
 
  private:
-  int m_pin;
+  uint8_t m_pin;
 };

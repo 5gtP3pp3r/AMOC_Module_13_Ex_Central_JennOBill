@@ -1,3 +1,4 @@
+#pragma once
 #include "CoeurReacteur.h"
 
 class WebServer;

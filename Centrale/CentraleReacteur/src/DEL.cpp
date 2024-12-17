@@ -1,6 +1,6 @@
 #include "DEL.h"
 
-DEL::DEL(int p_pin)
+DEL::DEL(uint8_t p_pin)
     :m_pin(p_pin) {
   pinMode(this->m_pin, OUTPUT);
 }
