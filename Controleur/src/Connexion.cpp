@@ -4,10 +4,15 @@ Connexion::Connexion(
     uint16_t p_intervalMiseAJour
 ) :
     m_derniereMiseAJour(DEFAUT),
-    m_intervalMiseAJour(p_intervalMiseAJour) { ; }
+    m_intervalMiseAJour(p_intervalMiseAJour),
+    m_url("inconnu") { ; }
 
 bool Connexion::estConnecte() {
   return (WiFi.status() == WL_CONNECTED);
+}
+
+String Connexion::getURL() {
+    return this->m_url;
 }
 
 void Connexion::tick() {
@@ -22,17 +27,14 @@ void Connexion::tick() {
 }
 
 void Connexion::connexionReseau() {
-  
-  const String ssidList[NB_RESEAUX] = { WIFI_SSID_1, WIFI_SSID_2, WIFI_SSID_3 };
-  const String passwordList[NB_RESEAUX] = { WIFI_PASSWORD_1, WIFI_PASSWORD_2, WIFI_PASSWORD_3 };
 
   bool connecte = false;
   
    for (uint8_t reseau = 0; reseau < NB_RESEAUX && !connecte ; ++reseau){
     uint8_t nbEssais = 0;
     Serial.print("Connexion au réseau WiFi: ");
-    Serial.println(ssidList[reseau]);
-    WiFi.begin(ssidList[reseau], passwordList[reseau]);
+    Serial.println(ssidListe[reseau]);
+    WiFi.begin(ssidListe[reseau], passwordListe[reseau]);
 
     Serial.print("Connexion: [");
     while (nbEssais < NB_ESSAIS_MAX && WiFi.status() != WL_CONNECTED) {
@@ -44,8 +46,9 @@ void Connexion::connexionReseau() {
     Serial.println("");
 
     if (WiFi.status() == WL_CONNECTED) {
+      this->m_url = urlListe[reseau];
       Serial.print("Connecté au réseau WiFi: ");
-      Serial.println(ssidList[reseau]);
+      Serial.println(ssidListe[reseau]);
       Serial.print("Adresse IP: ");
       Serial.println(WiFi.localIP());
       Serial.println("");
@@ -53,7 +56,7 @@ void Connexion::connexionReseau() {
     }
     else {
       Serial.print("Échec de connexion au réseau: ");
-      Serial.println(ssidList[reseau]);
+      Serial.println(ssidListe[reseau]);
     }
   }  
 }

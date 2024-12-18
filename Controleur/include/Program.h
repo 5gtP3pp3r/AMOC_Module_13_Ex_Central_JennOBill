@@ -5,20 +5,21 @@
 #include "ControleurReacteur.h"
 #include "ActionChangerEtat.h"
 #include "BoutonChangerEtat.h"
-#include "SynchroniserDEL.h"
+#include "SynchroniseurDEL.h"
 #include "Connexion.h"
 #include "DEL.h"
 class Program {
 private:
   DEL* m_DELVerte;
   DEL* m_DELRouge;
-  Connexion* m_connection;
+  
   ActionChangerEtat* m_actionChangerEtat;
   BoutonChangerEtat* m_boutonChangerEtat;
   ControleurReacteur* m_controleurReacteur;
   SynchroniseurDEL* m_synchronoseurDEL;
   
 public:
+  Connexion* m_connexion;
   Program();
   void loop(); 
-};
+};  

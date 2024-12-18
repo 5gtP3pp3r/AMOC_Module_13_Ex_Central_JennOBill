@@ -1,18 +1,25 @@
 #include "ControleurReacteur.h"
 
 ControleurReacteur::ControleurReacteur(
-    const String& p_urlBase,
+    Connexion* p_connexion,
     uint16_t p_intervalMiseAJour
     ) :
         m_etatReacteur("inconnu"), 
         m_dernierEtat("inconnu"),
-        m_urlBase(p_urlBase), 
+        m_urlBase("inconnu"),
+        m_connexion(p_connexion), 
         m_derniereMiseAJour(DEFAUT), 
         m_intervalMiseAJour(p_intervalMiseAJour) { ; }
 
+void ControleurReacteur::getURL() {
+    this->m_urlBase = this->m_connexion->getURL();
+    Serial.println(this->m_urlBase);
+}
+
 String ControleurReacteur::getEtatReacteur() const {
-    StaticJsonDocument<128> document;
-    return document["etat"].as<String>();
+    return m_etatReacteur.substring(9,14);
+    // StaticJsonDocument<128> document;
+    // return document["etat"].as<String>();
 }
 
 void ControleurReacteur::getEtatReacteurAPI() {

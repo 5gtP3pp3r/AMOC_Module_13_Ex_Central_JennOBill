@@ -1,4 +1,4 @@
-#include "SynchroniserDEL.h"
+#include "SynchroniseurDEL.h"
 
 SynchroniseurDEL::SynchroniseurDEL(
     DEL* p_DELVerte,

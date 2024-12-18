@@ -9,6 +9,5 @@ void setup() {
 
 void loop() {
     program->loop();
-    program->tick();
 }
 // reste à implémenter Terminal.h/cpp
