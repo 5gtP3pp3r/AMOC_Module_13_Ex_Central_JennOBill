@@ -1,6 +1,7 @@
 #include "ServeurWeb.h"
 #include <WebServer.h>
 #include <ArduinoJson.h>
+#include <uri/UriRegex.h>
 
 ServeurWeb::ServeurWeb(CoeurReacteur* p_coeurReacteur) : m_coeurReacteur(p_coeurReacteur){
     this->m_webServer = new WebServer();
@@ -9,6 +10,21 @@ ServeurWeb::ServeurWeb(CoeurReacteur* p_coeurReacteur) : m_coeurReacteur(p_coeur
                           [this]() {this->getStatus();});
     this->m_webServer->on("/coeur-reacteur",HTTPMethod::HTTP_PUT,
                         [this]() {this->handleRequetePut();});
+    this->m_webServer->on(UriRegex(".*"),HTTPMethod::HTTP_OPTIONS,
+                          [this]() {this->optionsCors();});
+    this->m_webServer->begin();
+}
+
+void ServeurWeb::optionsCors() const {
+  this->m_webServer->sendHeader("Access-Control-Allow-Origin", "*");
+  this->m_webServer->sendHeader("Access-Control-Max-Age", "600");
+  this->m_webServer->sendHeader("Access-Control-Allow-Methods", "PUT,POST,GET,OPTIONS");
+  this->m_webServer->sendHeader("Access-Control-Allow-Headers", "*");
+  this->m_webServer->send(204);
+}
+
+void ServeurWeb::envoyerCors() const {
+  this->m_webServer->sendHeader("Access-Control-Allow-Origin", "*");
 }
 
 void ServeurWeb::tick(){
@@ -59,6 +75,7 @@ String ServeurWeb::serialiserReponse(String const& p_reponse) {
         else{
             this->m_coeurReacteur->desactiver();
         }
+        this->envoyerCors();
         this->m_webServer->send(200,"text/json",serialiserReponse(requete));
     }
  }
