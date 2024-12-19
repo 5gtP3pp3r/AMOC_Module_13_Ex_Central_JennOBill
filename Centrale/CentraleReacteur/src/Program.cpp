@@ -5,16 +5,19 @@
 #include "DEL.h"
 #include "CoeurReacteur.h"
 #include "ServeurWeb.h"
+#include "BasicCommandInterpretator/InterpreteurCommandeSpecifique.h"
 
 const uint8_t pinDEL = 26;
 
 Program::Program(){
     this->m_coeurReacteur = new CoeurReacteur(new DEL(pinDEL));
     this->m_serveurWeb = new ServeurWeb(this->m_coeurReacteur);
+    this->m_interpreteurCommandeSpecifique = new InterpreteurCommandeSpecifique(Serial,this->m_coeurReacteur);
 }
 
 void Program::loop(){
     this->m_serveurWeb->tick();
+    this->m_interpreteurCommandeSpecifique->tick();
 }
 
 void Program::connexionReseau(){

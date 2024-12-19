@@ -31,7 +31,7 @@ void ServeurWeb::tick(){
     this->m_webServer->handleClient();
 }
 
-bool ServeurWeb::getStatus(){
+String ServeurWeb::getStatus(){
     return this->m_coeurReacteur->getStatut();
 }
 

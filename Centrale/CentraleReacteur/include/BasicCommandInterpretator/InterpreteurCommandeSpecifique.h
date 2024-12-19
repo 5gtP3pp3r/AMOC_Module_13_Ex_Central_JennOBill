@@ -1,13 +1,15 @@
 #pragma once
 
-#include "InterpreteurCommande.h"
+#include "BasicCommandInterpretor.h"
+#include "CoeurReacteur.h"
 
-class InterpreteurCommandeSpecifique : public InterpreteurCommande {
+class InterpreteurCommandeSpecifique : public BasicCommandInterpretor {
  protected:
-  virtual bool interpreter(const String &commande,
+  virtual bool interpret(const String &commande,
                          const String &parametres) override;
-  virtual bool getParametre(const String &cle) override;
-
+  virtual bool getParameter(const String &cle) override;
+  private:
+  CoeurReacteur* m_coeurReacteur;
  public:
-  InterpreteurCommandeSpecifique(Stream &stream);
+  InterpreteurCommandeSpecifique(Stream &stream, CoeurReacteur* p_coeurReacteur);
 };
