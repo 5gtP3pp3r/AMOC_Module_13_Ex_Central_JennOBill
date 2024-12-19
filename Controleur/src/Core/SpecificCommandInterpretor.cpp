@@ -3,6 +3,7 @@
 #include "Log/Logger.h"
 
 // SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
+
 // Modifié pour adapter à mon projet \o/
 SpecificCommandInterpretor::SpecificCommandInterpretor(
   Stream &stream,

@@ -4,6 +4,7 @@
 
 #include "Core/SimpleCollection.h"
 
+// SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
 #ifdef ESP32
 struct WiFiNetwork {
   String ssid;

@@ -2,6 +2,7 @@
 #include <HTTPClient.h>
 #include <WiFi.h>
 #include <Arduino.h>
+#include <ArduinoJson.h>
 #include "Connection.h"
 #include "config.h"
 

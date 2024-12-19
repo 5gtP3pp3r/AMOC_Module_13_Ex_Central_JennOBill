@@ -17,9 +17,10 @@ void ReactorController::getURL() {
 }
 
 String ReactorController::getReactorState() const {
-    return m_reactorState.substring(9,14);
-    // StaticJsonDocument<128> document;
-    // return document["etat"].as<String>();
+    //return m_reactorState.substring(9,14);
+    StaticJsonDocument<128> document;
+    return document["etat"].as<String>();
+    Serial.println(document["etat"].as<String>());
 }
 
 void ReactorController::getReactorStateAPI() {

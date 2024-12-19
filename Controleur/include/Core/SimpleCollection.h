@@ -1,5 +1,6 @@
 #pragma once
 
+// SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
 // vector is not supported in Arduino
 template <typename ElementType>
 class SimpleCollection {
