@@ -10,14 +10,20 @@
 #include "Core/StringUtil.h"
 
 String Device::getId() {
-
+#ifdef ESP32
   uint32_t macPart = ESP.getEfuseMac() & 0xFFFFFFFF;
   return String(macPart, HEX);
+#elif ARDUINO_AVR_UNO
+  return String("Undefined");
+#else
+  #error "Unsupported platform";
+#endif
+
 }
 
-std::vector<uint16_t> Device::getI2CAddresses() {
+SimpleCollection<uint16_t> Device::getI2CAddresses() {
   byte error, address;
-  std::vector<uint16_t> i2cAddresses;
+  SimpleCollection<uint16_t> i2cAddresses;
 
   Logger.infoln(F("Scanning I2C devices..."));
 
@@ -50,6 +56,7 @@ std::vector<uint16_t> Device::getI2CAddresses() {
   return i2cAddresses;
 }
 
+#ifdef ESP32
 std::vector<WiFiNetwork> Device::getWiFiNetworks() {
   std::vector<WiFiNetwork> networks;
   WiFi.scanNetworks();
@@ -63,3 +70,4 @@ std::vector<WiFiNetwork> Device::getWiFiNetworks() {
   }
   return networks;
 }
+#endif
