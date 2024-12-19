@@ -17,15 +17,17 @@ bool SpecificCommandInterpretor::interpret(const String &command,
                                            const String &parameters) {
   bool error = false;
 
-  if (command == "coeur-reacteur statut") {
-    String reactorState = m_controller->getReactorState();
-    Logger.println("Statut réacteur: \"" + reactorState + "\"");
-  } else if (command == "coeur-reacteur activer") {
-    m_controller->activateReactor();
-    Logger.println(F("Réacteur activé."));
-  } else if (command == "coeur-reacteur desactiver") {
-    m_controller->shutReactor();
-    Logger.println(F("Réacteur désactivé."));
+  if (command == "coeur-reacteur") {
+    if (parameters == "status") {
+      String reactorState = m_controller->getReactorState();
+      Logger.println("Statut réacteur: \"" + reactorState + "\"");
+    } else if (parameters == "activer") {
+      m_controller->activateReactor();
+      Logger.println(F("Réacteur activé."));
+    } else if (parameters == "desactiver") {
+      m_controller->shutReactor();
+      Logger.println(F("Réacteur désactivé."));
+    }     
   } else if (command == "help") {
     Logger.println(F(""));
     Logger.println(F("  specific"));
