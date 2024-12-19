@@ -4,6 +4,7 @@
 
 #include <Stream.h>
 
+// SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
 enum LoggerLevel { ERROR = 1, WARNING = 2, INFO = 3, VERBOSE = 4 };
 
 class LoggerImpl {

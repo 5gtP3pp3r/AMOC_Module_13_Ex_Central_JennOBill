@@ -9,6 +9,8 @@
 
 #include "Core/StringUtil.h"
 
+// SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
+
 String Device::getId() {
 #ifdef ESP32
   uint32_t macPart = ESP.getEfuseMac() & 0xFFFFFFFF;

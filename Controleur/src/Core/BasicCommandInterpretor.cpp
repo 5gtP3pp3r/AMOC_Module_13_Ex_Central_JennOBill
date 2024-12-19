@@ -15,6 +15,8 @@
 #include <vector>
 #endif
 
+// SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
+
 BasicCommandInterpretor::BasicCommandInterpretor(Stream &stream)
     : m_stream(stream), m_lastSerialInput("") {
   ;
