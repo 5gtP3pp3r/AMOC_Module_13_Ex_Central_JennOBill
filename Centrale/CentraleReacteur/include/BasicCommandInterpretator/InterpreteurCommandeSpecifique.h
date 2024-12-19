@@ -1,9 +1,9 @@
 #pragma once
 
-#include "BasicCommandInterpretor.h"
+#include "BasicCommandInterpretator.h"
 #include "CoeurReacteur.h"
 
-class InterpreteurCommandeSpecifique : public BasicCommandInterpretor {
+class InterpreteurCommandeSpecifique : public BasicCommandInterpretator {
  protected:
   virtual bool interpret(const String &commande,
                          const String &parametres) override;

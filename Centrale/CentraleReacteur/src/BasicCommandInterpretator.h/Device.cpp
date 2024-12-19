@@ -1,13 +1,13 @@
-#include "Core/Device.h"
+#include "BasicCommandInterpretator/Device.h"
 
 #include <Wire.h>
 #ifdef ESP32
 #include <WiFi.h>
 #endif
 
-#include "Log/Logger.h"
+#include "BasicCommandInterpretator/Logger.h"
 
-#include "Core/StringUtil.h"
+#include "BasicCommandInterpretator/StringUtil.h"
 
 String Device::getId() {
 

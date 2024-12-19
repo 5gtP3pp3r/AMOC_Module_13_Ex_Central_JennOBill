@@ -5,7 +5,7 @@
 
 // Source: PIFOU : https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
 
-class BasicCommandInterpretor {
+class BasicCommandInterpretator {
  private:
   Stream &m_stream;
   String m_lastSerialInput;
@@ -16,7 +16,7 @@ class BasicCommandInterpretor {
   virtual bool setParameter(const String &key, const String &value);
 
  public:
-  BasicCommandInterpretor(Stream &stream);
+  BasicCommandInterpretator(Stream &stream);
   void tick();
   bool executeCommand(const String &command);
 };

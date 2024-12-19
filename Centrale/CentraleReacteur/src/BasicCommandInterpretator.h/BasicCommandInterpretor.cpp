@@ -1,24 +1,24 @@
-#include "Core/BasicCommandInterpretor.h"
+#include "BasicCommandInterpretator/BasicCommandInterpretator.h"
 
 #include <Arduino.h>
 #include <Stream.h>
 
-#include "Log/Logger.h"
+#include "BasicCommandInterpretator/Logger.h"
 
-#include "Core/Device.h"
-#include "Core/StringUtil.h"
+#include "BasicCommandInterpretator/Device.h"
+#include "BasicCommandInterpretator/StringUtil.h"
 
 #include <ESP.h>
 #include <WiFi.h>
 #include <esp_wifi.h>
 #include <vector>
 
-BasicCommandInterpretor::BasicCommandInterpretor(Stream &stream)
+BasicCommandInterpretator::BasicCommandInterpretator(Stream &stream)
     : m_stream(stream), m_lastSerialInput("") {
   ;
 }
 
-void BasicCommandInterpretor::tick() {
+void BasicCommandInterpretator::tick() {
   while (this->m_stream.available()) {
     char c = this->m_stream.read();
     if (c == '\n') {
@@ -30,7 +30,7 @@ void BasicCommandInterpretor::tick() {
   }
 }
 
-bool BasicCommandInterpretor::executeCommand(const String &command) {
+bool BasicCommandInterpretator::executeCommand(const String &command) {
   String cmd = command;
 
   String parameters = "";
@@ -47,7 +47,7 @@ bool BasicCommandInterpretor::executeCommand(const String &command) {
   return this->interpret(cmd, parameters);
 }
 
-bool BasicCommandInterpretor::interpret(const String &command,
+bool BasicCommandInterpretator::interpret(const String &command,
                                         const String &parameters) {
   bool error = false;
 
@@ -154,7 +154,7 @@ bool BasicCommandInterpretor::interpret(const String &command,
   return !error;
 }
 
-bool BasicCommandInterpretor::getParameter(const String &key) {
+bool BasicCommandInterpretator::getParameter(const String &key) {
   bool error = false;
 
   if (key == "debug") {
@@ -167,7 +167,7 @@ bool BasicCommandInterpretor::getParameter(const String &key) {
   return !error;
 }
 
-bool BasicCommandInterpretor::setParameter(const String &key,
+bool BasicCommandInterpretator::setParameter(const String &key,
                                            const String &value) {
   bool error = false;
 

@@ -7,7 +7,7 @@ String desactiver = "desactiver";
 String statut = "statut";
 
 InterpreteurCommandeSpecifique::InterpreteurCommandeSpecifique(Stream &stream, CoeurReacteur* p_coeurReacteur)
-    : BasicCommandInterpretor(stream), m_coeurReacteur(p_coeurReacteur) {
+    : BasicCommandInterpretator(stream), m_coeurReacteur(p_coeurReacteur) {
   ;
 }
 
@@ -40,6 +40,6 @@ bool InterpreteurCommandeSpecifique::interpret(const String &p_commande,
 }
 
 bool InterpreteurCommandeSpecifique::getParameter(const String &p_cle) {
-  return BasicCommandInterpretor::getParameter(p_cle);
+  return BasicCommandInterpretator::getParameter(p_cle);
 }
 
