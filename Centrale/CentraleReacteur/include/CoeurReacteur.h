@@ -11,5 +11,5 @@ class CoeurReacteur
     CoeurReacteur(DEL* p_del);
     void activer();
     void desactiver();
-    bool getStatut();
+    String getStatut();
 };

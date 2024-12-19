@@ -1,19 +1,23 @@
 #include "CoeurReacteur.h"
 
-CoeurReacteur::CoeurReacteur(DEL* p_del) : m_del(p_del){
+CoeurReacteur::CoeurReacteur(DEL *p_del) : m_del(p_del)
+{
     this->estActif = false;
 }
 
-void CoeurReacteur::activer(){
+void CoeurReacteur::activer()
+{
     this->m_del->allumer();
     this->estActif = true;
 }
 
-void CoeurReacteur::desactiver(){
+void CoeurReacteur::desactiver()
+{
     this->m_del->eteindre();
     this->estActif = false;
 }
 
-bool CoeurReacteur::getStatut(){
-    return this->estActif;
+String CoeurReacteur::getStatut()
+{
+    return this->estActif ? "{\"etat\": \"actif\"}" : "{\"etat\": \"repos\"}";
 }
