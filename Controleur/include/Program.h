@@ -2,24 +2,24 @@
 #include <Arduino.h>
 #include "config.h"
 #include "Program.h"
-#include "ControleurReacteur.h"
-#include "ActionChangerEtat.h"
-#include "BoutonChangerEtat.h"
-#include "SynchroniseurDEL.h"
-#include "Connexion.h"
-#include "DEL.h"
+#include "ReactorController.h"
+#include "ActionChangeState.h"
+#include "ButtonChangeState.h"
+#include "LEDSynchroniser.h"
+#include "Connection.h"
+#include "LED.h"
 class Program {
 private:
-  DEL* m_DELVerte;
-  DEL* m_DELRouge;
+  LED* m_greenLED;
+  LED* m_redLED;
   
-  ActionChangerEtat* m_actionChangerEtat;
-  BoutonChangerEtat* m_boutonChangerEtat;
-  ControleurReacteur* m_controleurReacteur;
-  SynchroniseurDEL* m_synchronoseurDEL;
+  ActionChangeState* m_actionChangeState;
+  ButtonChangeState* m_buttonChangeState;
+  ReactorController* m_reactorController;
+  LEDSynchroniser* m_LEDSynchroniser;
   
 public:
-  Connexion* m_connexion;
+  Connection* m_connection;
   Program();
   void loop(); 
 };  

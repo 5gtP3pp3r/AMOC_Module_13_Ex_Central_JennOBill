@@ -1,5 +1,5 @@
 #pragma once
 
 class Action {
-    virtual void executer() = 0;
+    virtual void execute() = 0;
 };

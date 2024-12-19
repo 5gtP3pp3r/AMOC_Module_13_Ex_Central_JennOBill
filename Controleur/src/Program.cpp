@@ -1,35 +1,35 @@
 #include "Program.h"
 
 Program::Program() { 
-  this->m_DELVerte = new DEL(PIN_VERTE);
-  this->m_DELRouge = new DEL(PIN_ROUGE);
-  this->m_connexion = new Connexion(INTERVAL_5);
-  this->m_controleurReacteur = new ControleurReacteur(
-    this->m_connexion,
+  this->m_greenLED = new LED(GREEN_PIN);
+  this->m_redLED = new LED(RED_PIN);
+  this->m_connection = new Connection(INTERVAL_5);
+  this->m_reactorController = new ReactorController(
+    this->m_connection,
     INTERVAL_2
   );
-  this->m_actionChangerEtat = new ActionChangerEtat(
-    this->m_controleurReacteur
+  this->m_actionChangeState = new ActionChangeState(
+    this->m_reactorController
   );
-  this->m_synchronoseurDEL = new SynchroniseurDEL(
-    this->m_DELVerte,
-    this->m_DELRouge,
-    this->m_controleurReacteur,
+  this->m_LEDSynchroniser = new LEDSynchroniser(
+    this->m_greenLED,
+    this->m_redLED,
+    this->m_reactorController,
     INTERVAL_1
   );
-  this->m_boutonChangerEtat = new BoutonChangerEtat(
-    PIN_BOUTON,
+  this->m_buttonChangeState = new ButtonChangeState(
+    BUTTON_PIN,
     INTERVAL_40,
-    this->m_actionChangerEtat
+    this->m_actionChangeState
   );
-  this->m_connexion->connexionReseau();
-  this->m_controleurReacteur->getURL();
+  this->m_connection->connectToNetwork();
+  this->m_reactorController->getURL();
 }
 
 void Program::loop() {
-  this->m_controleurReacteur->tick();
-  this->m_boutonChangerEtat->tick();
-  this->m_synchronoseurDEL->tick(); 
-  this->m_connexion->tick();
+  this->m_reactorController->tick();
+  this->m_buttonChangeState->tick();
+  this->m_LEDSynchroniser->tick(); 
+  this->m_connection->tick();
 }
 // reste à implémenter Terminal.h/cpp
