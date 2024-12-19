@@ -3,9 +3,9 @@
 #include "config.h"
 #include "Program.h"
 #include "ReactorController.h"
-#include "ActionChangeState.h"
-#include "ButtonChangeState.h"
-#include "LEDSynchroniser.h"
+#include "Actions/ActionChangeState.h"
+#include "Tasks/ButtonChangeState.h"
+#include "Tasks/LEDSynchroniser.h"
 #include "Connection.h"
 #include "LED.h"
 class Program {
