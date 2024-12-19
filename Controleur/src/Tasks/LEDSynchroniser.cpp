@@ -19,9 +19,14 @@ void LEDSynchroniser::tick() {
         if (this->m_controller->getReactorState() == "actif") {
             this->m_greenLED->light();
             this->m_redLED->shut();
-        } else {
+        } 
+        else if (this->m_controller->getReactorState() == "repos") {
             this->m_greenLED->shut();
             this->m_redLED->light();
+        } 
+        else {
+            this->m_greenLED->shut();
+            this->m_redLED->shut();
         }         
     }
 }

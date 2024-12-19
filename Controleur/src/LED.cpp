@@ -1,4 +1,5 @@
 #include <Arduino.h>
+
 #include "LED.h"
 
 LED::LED(const uint8_t p_pin) : m_pin(p_pin) {

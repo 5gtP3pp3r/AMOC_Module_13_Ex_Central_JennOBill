@@ -8,6 +8,10 @@
 #include "Tasks/LEDSynchroniser.h"
 #include "Connection.h"
 #include "LED.h"
+
+#include "Core/SpecificCommandInterpretor.h"
+#include "Log/Logger.h"
+
 class Program {
 private:
   LED* m_greenLED;
@@ -17,6 +21,7 @@ private:
   ButtonChangeState* m_buttonChangeState;
   ReactorController* m_reactorController;
   LEDSynchroniser* m_LEDSynchroniser;
+  SpecificCommandInterpretor* m_commandInterpretor;
   
 public:
   Connection* m_connection;
