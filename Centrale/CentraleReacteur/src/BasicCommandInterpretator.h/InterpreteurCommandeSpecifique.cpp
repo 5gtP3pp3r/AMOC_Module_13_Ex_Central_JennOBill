@@ -21,8 +21,8 @@ bool InterpreteurCommandeSpecifique::interpret(const String &p_commande,
      }else if(p_parametres == "desactiver"){
       this->m_coeurReacteur->desactiver();
      }else if(p_parametres == "statut"){
-      bool estActif = this->m_coeurReacteur->getStatut();
-      Logger.println("Le statut du réacteur est: " + estActif? "actif" : "inactif");
+      String statut = this->m_coeurReacteur->getStatut();
+      Logger.println("Le statut du réacteur est: " + statut);
      }
     }
   else if (p_commande == "help") {
@@ -31,7 +31,10 @@ bool InterpreteurCommandeSpecifique::interpret(const String &p_commande,
     Logger.println(F("  coeur-reacteur activer"));
     Logger.println(F("  coeur-reacteur desactiver"));
     Logger.println(F("  help"));
+    BasicCommandInterpretator::interpret(p_commande, p_parametres);
   } else {
+    BasicCommandInterpretator::interpret(p_commande, p_parametres);
+
     Logger.errorln(String(F("Commande inconnue: ")) + p_commande);
     erreur = true;
   }

@@ -8,10 +8,10 @@ class DEL;
 class Program {
     public:
     Program();
-    void connexionReseau();
     void loop();
 
     private:
+    void connexionReseau();
     ServeurWeb* m_serveurWeb;
     CoeurReacteur* m_coeurReacteur;
     InterpreteurCommandeSpecifique* m_interpreteurCommandeSpecifique;

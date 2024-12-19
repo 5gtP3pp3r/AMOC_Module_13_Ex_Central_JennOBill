@@ -8,7 +8,7 @@ class ServeurWeb {
     CoeurReacteur* m_coeurReacteur;
     WebServer* m_webServer;
     void handleRequetePut();
-    String getStatus();
+    void getStatus();
     String deserialiserRequete(String const& p_requete);
     String serialiserReponse(String const& p_reponse);
     void envoyerCors() const;

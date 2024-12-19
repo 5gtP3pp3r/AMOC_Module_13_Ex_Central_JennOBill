@@ -21,6 +21,7 @@ BasicCommandInterpretator::BasicCommandInterpretator(Stream &stream)
 void BasicCommandInterpretator::tick() {
   while (this->m_stream.available()) {
     char c = this->m_stream.read();
+    this->m_stream.print(c);
     if (c == '\n') {
       this->executeCommand(m_lastSerialInput);
       this->m_lastSerialInput = "";
