@@ -8,9 +8,9 @@
 #include "BasicCommandInterpretator/SpecificCommandInterpretator.h"
 #include "BasicCommandInterpretator/Logger.h"
 
-IPAddress ip(192,168,24,1);
-IPAddress gateaway(192,168,24,1);
-IPAddress mask(255,255,255,0);
+IPAddress ip(192, 168, 24, 1);
+IPAddress gateaway(192, 168, 24, 1);
+IPAddress mask(255, 255, 255, 0);
 
 const uint8_t pinDEL = 26;
 
@@ -22,7 +22,6 @@ Program::Program()
   this->m_reactorHeart = new ReactorHeart(new LED(pinDEL));
   this->m_webServer = new ReactorWebServer(this->m_reactorHeart);
   this->m_specificCommandInterpretator = new SpecificCommandInterpretator(Serial, this->m_reactorHeart);
-  
 }
 
 void Program::loop()
@@ -55,7 +54,7 @@ void Program::networkConnection()
   }
   else
   {
-   bool isSuccessfulConfig =
+    bool isSuccessfulConfig =
         WiFi.softAPConfig(ip, gateaway, mask);
     bool isSuccessfulStartup = false;
     Serial.println(String("Configuration réseau du point d'accès : ") +

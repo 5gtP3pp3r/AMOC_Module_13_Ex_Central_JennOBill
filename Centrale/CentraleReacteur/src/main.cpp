@@ -1,14 +1,14 @@
 #include <Arduino.h>
 #include "Program.h"
 
-Program* program;
+Program *program;
 
-void setup() {
+void setup()
+{
   program = new Program();
-
-  
 }
 
-void loop() {
+void loop()
+{
   program->loop();
 }

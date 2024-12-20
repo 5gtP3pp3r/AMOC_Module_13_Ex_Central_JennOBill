@@ -1,13 +1,18 @@
 #pragma once
-
 #include <Arduino.h>
-
 #include <Stream.h>
 
-enum LoggerLevel { ERROR = 1, WARNING = 2, INFO = 3, VERBOSE = 4 };
+enum LoggerLevel
+{
+  ERROR = 1,
+  WARNING = 2,
+  INFO = 3,
+  VERBOSE = 4
+};
 
-class LoggerImpl {
- public:
+class LoggerImpl
+{
+public:
   void begin(Stream *Stream);
 
   void error(const String &value, bool writePrefix = true);
@@ -38,13 +43,13 @@ class LoggerImpl {
   void setLoggerLevel(LoggerLevel loggerLevel);
   LoggerLevel getLoggerLevel();
 
- private:
+private:
   Stream *m_stream = nullptr;
   LoggerLevel m_loggerLevel = LoggerLevel::INFO;
 };
 
 extern LoggerImpl Logger;
 
-#define LOGGER_BEGIN_METHOD  Logger.verboseln(String(__FILE__) + String(F(" - ")) + String(__FUNCTION__) + String(F(": begin")));
-#define LOGGER_END_METHOD    Logger.verboseln(String(__FILE__) + String(F(" - ")) + String(__FUNCTION__) + String(F(": end")));
-#define LOGGER_VAR(var)      Logger.verboseln(String(__FILE__) + String(F(" - ")) + String(__FUNCTION__) + String(F(": @")) + String(__LINE__) + String(F(" - ")) + String(#var) + String(F(" = ")) + String(var));
+#define LOGGER_BEGIN_METHOD Logger.verboseln(String(__FILE__) + String(F(" - ")) + String(__FUNCTION__) + String(F(": begin")));
+#define LOGGER_END_METHOD Logger.verboseln(String(__FILE__) + String(F(" - ")) + String(__FUNCTION__) + String(F(": end")));
+#define LOGGER_VAR(var) Logger.verboseln(String(__FILE__) + String(F(" - ")) + String(__FUNCTION__) + String(F(": @")) + String(__LINE__) + String(F(" - ")) + String(#var) + String(F(" = ")) + String(var));

@@ -5,14 +5,15 @@ class SpecificCommandInterpretator;
 class ReactorWebServer;
 class LED;
 
-class Program {
-    public:
+class Program
+{
+public:
     Program();
     void loop();
 
-    private:
+private:
     void networkConnection();
-    ReactorWebServer* m_webServer;
-    ReactorHeart* m_reactorHeart;
-    SpecificCommandInterpretator* m_specificCommandInterpretator;
+    ReactorWebServer *m_webServer;
+    ReactorHeart *m_reactorHeart;
+    SpecificCommandInterpretator *m_specificCommandInterpretator;
 };
