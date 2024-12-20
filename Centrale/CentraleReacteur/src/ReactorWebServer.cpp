@@ -44,27 +44,27 @@ void ReactorWebServer::getState()
   this->m_webServer->send(200, "text/json", reponse);
 }
 
-String ReactorWebServer::deserialiseJson(String const &p_requete)
+String ReactorWebServer::deserialiseJson(String const &p_request)
 {
   DynamicJsonDocument doc(256);
-  String resultat = "";
+  String result = "";
 
-  DeserializationError erreur = deserializeJson(doc, p_requete);
+  DeserializationError error = deserializeJson(doc, p_request);
 
-  if (!erreur)
+  if (!error)
   {
-    resultat = doc["etat"].as<String>();
+    result = doc["etat"].as<String>();
   }
 
-  return resultat;
+  return result;
 }
 
-String ReactorWebServer::serialiseJson(String const &p_reponse)
+String ReactorWebServer::serialiseJson(String const &p_response)
 {
   DynamicJsonDocument doc(256);
   char json[256];
 
-  doc["etat"] = p_reponse;
+  doc["etat"] = p_response;
 
   serializeJson(doc, json);
 
@@ -73,19 +73,19 @@ String ReactorWebServer::serialiseJson(String const &p_reponse)
 
 void ReactorWebServer::handlePutRequest()
 {
-  String requeteJson = this->m_webServer->arg("plain");
-  String requete = deserialiseJson(requeteJson);
+  String jsonRequest = this->m_webServer->arg("plain");
+  String request = deserialiseJson(jsonRequest);
 
-  if (requete.isEmpty() ||
-      (requete != "actif" &&
-       requete != "repos"))
+  if (request.isEmpty() ||
+      (request != "actif" &&
+       request != "repos"))
   {
 
     this->m_webServer->send(400, "text/plain", "La requrequête ne respecte pas le format.");
   }
   else
   {
-    if (requete == "actif")
+    if (request == "actif")
     {
       this->m_reactorHeart->activate();
     }
@@ -94,6 +94,6 @@ void ReactorWebServer::handlePutRequest()
       this->m_reactorHeart->deactivate();
     }
     this->sendCors();
-    this->m_webServer->send(200, "text/json", serialiseJson(requete));
+    this->m_webServer->send(200, "text/json", serialiseJson(request));
   }
 }
