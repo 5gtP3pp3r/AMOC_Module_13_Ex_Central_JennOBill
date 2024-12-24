@@ -1,18 +1,19 @@
 #pragma once
 
-class CoeurReacteur;
-class InterpreteurCommandeSpecifique;
-class ServeurWeb;
-class DEL;
+class ReactorHeart;
+class SpecificCommandInterpretator;
+class ReactorWebServer;
+class LED;
 
-class Program {
-    public:
+class Program
+{
+public:
     Program();
-    void connexionReseau();
     void loop();
 
-    private:
-    ServeurWeb* m_serveurWeb;
-    CoeurReacteur* m_coeurReacteur;
-    InterpreteurCommandeSpecifique* m_interpreteurCommandeSpecifique;
+private:
+    void networkConnection();
+    ReactorWebServer *m_webServer;
+    ReactorHeart *m_reactorHeart;
+    SpecificCommandInterpretator *m_specificCommandInterpretator;
 };

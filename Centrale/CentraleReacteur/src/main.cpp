@@ -1,13 +1,14 @@
 #include <Arduino.h>
 #include "Program.h"
 
-Program* program;
+Program *program;
 
-void setup() {
-  Serial.begin(115200);
+void setup()
+{
   program = new Program();
 }
 
-void loop() {
+void loop()
+{
   program->loop();
 }
