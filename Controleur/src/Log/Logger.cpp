@@ -2,6 +2,9 @@
 
 #include "Core/StringUtil.h"
 
+// SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
+// Modifieé pour ignorer SimpleCollection et arduino uno.
+
 void LoggerImpl::begin(Stream *stream) { this->m_stream = stream; }
 
 void LoggerImpl::error(const String &value, bool writePrefix) {

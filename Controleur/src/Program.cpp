@@ -35,6 +35,7 @@ Program::Program()
         Serial,
         this->m_reactorController); 
       Serial.begin(SERIAL_SPEED);
+      Logger.begin(&Serial);
       this->m_connection->connectToNetwork();
       this->m_reactorController->getURL();
 }

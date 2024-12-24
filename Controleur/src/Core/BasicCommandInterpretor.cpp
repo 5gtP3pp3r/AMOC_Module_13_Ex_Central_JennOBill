@@ -2,20 +2,17 @@
 
 #include <Arduino.h>
 #include <Stream.h>
-
-#include "Log/Logger.h"
-
-#include "Core/Device.h"
-#include "Core/StringUtil.h"
-
-#ifdef ESP32
 #include <ESP.h>
 #include <WiFi.h>
 #include <esp_wifi.h>
 #include <vector>
-#endif
+
+#include "Log/Logger.h"
+#include "Core/Device.h"
+#include "Core/StringUtil.h"
 
 // SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
+// Modifieé pour ignorer SimpleCollection et arduino uno.
 
 BasicCommandInterpretor::BasicCommandInterpretor(Stream &stream)
     : m_stream(stream), m_lastSerialInput("") {
@@ -24,7 +21,8 @@ BasicCommandInterpretor::BasicCommandInterpretor(Stream &stream)
 
 void BasicCommandInterpretor::tick() {
   while (this->m_stream.available()) {
-    char c = this->m_stream.read();
+    char c = this->m_stream.read(); 
+    this->m_stream.print(c);
     if (c == '\n') {
       this->executeCommand(m_lastSerialInput);
       this->m_lastSerialInput = "";
@@ -66,27 +64,21 @@ bool BasicCommandInterpretor::interpret(const String &command,
     error = !this->getParameter(key);
   } else if (command == "id") {
     Logger.println(String(F("ID: ")) + Device::getId());
-  } 
-#ifdef ESP32
-  else if (command == "reboot") {
+  } else if (command == "reboot") {
     Logger.infoln(F("Rebooting..."));
     ESP.restart();
-  } 
-#endif  
-  else if (command == "scan") {
+  } else if (command == "scan") {
     String deviceType = parameters;
 
     if (deviceType == "i2c") {
-      SimpleCollection<uint16_t> i2cAddresses = Device::getI2CAddresses();
+      std::vector<uint16_t> i2cAddresses = Device::getI2CAddresses();
       Logger.println(F("I2C addresses:"));
       for (size_t i = 0; i < i2cAddresses.size(); i++) {
         Logger.println(String(F("  - 0x")) +
                        StringUtil::padLeft(String(i2cAddresses[i], HEX), 2, '0'));
       }
       Logger.println(String(F("")));
-    } 
-    #ifdef ESP32
-    else if (deviceType == "wifi") {
+    } else if (deviceType == "wifi") {
       std::vector<WiFiNetwork> networks = Device::getWiFiNetworks();
       Logger.println(F("Wifi networks:"));
       for (size_t i = 0; i < networks.size(); i++) {
@@ -119,14 +111,10 @@ bool BasicCommandInterpretor::interpret(const String &command,
             String(F("% - BSSID: ")) + networks[i].bssid);
       }
       Logger.println("");
-    }
-    #endif
-     else {
+    } else {
       Logger.errorln(String(F("Unknown device type ")) + deviceType);
     }
-  } 
-  #ifdef ESP32
-  else if (command == "flash") {
+  } else if (command == "flash") {
     Logger.println(String(F("Flash size: ")) + ESP.getFlashChipSize() +
                    String(F(" bytes")));
     Logger.println(String(F("Flash speed: ")) + ESP.getFlashChipSpeed() +
@@ -149,22 +137,16 @@ bool BasicCommandInterpretor::interpret(const String &command,
                      String((char *)conf.sta.password));
 
     Logger.println(String(F("")));
-  }
-#endif
-  else if (command == "help") {
+  } else if (command == "help") {
     Logger.println(F("Available commands:"));
     Logger.println(F("  hello"));
     Logger.println(F("  id"));
     Logger.println(F("  set <key> <value>"));
     Logger.println(F("  get <key>"));
-#ifdef ESP32
     Logger.println(F("  scan i2c|wifi"));
     Logger.println(F("  reboot"));
     Logger.println(F("  flash"));
     Logger.println(F("  network"));
-#elif ARDUINO_AVR_UNO
-    Logger.println(F("  scan i2c"));
-#endif
     Logger.println(F(""));
     Logger.println(F("  help"));
   } else {

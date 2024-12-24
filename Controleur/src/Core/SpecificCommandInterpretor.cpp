@@ -3,8 +3,8 @@
 #include "Log/Logger.h"
 
 // SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
-
 // Modifié pour adapter à mon projet \o/
+
 SpecificCommandInterpretor::SpecificCommandInterpretor(
   Stream &stream,
   ReactorController* p_controller
@@ -19,9 +19,10 @@ bool SpecificCommandInterpretor::interpret(const String &command,
   bool error = false;
 
   if (command == "coeur-reacteur") {
-    if (parameters == "status") {
-      String reactorState = m_controller->getReactorState();
-      Logger.println("Statut réacteur: \"" + reactorState + "\"");
+    if (parameters == "statut") {
+      String reactorState = m_controller->getReactorState();     
+      Logger.print(F("Statut réacteur: "));
+      Logger.println("\"" + reactorState + "\"");
     } else if (parameters == "activer") {
       m_controller->activateReactor();
       Logger.println(F("Réacteur activé."));
@@ -30,9 +31,9 @@ bool SpecificCommandInterpretor::interpret(const String &command,
       Logger.println(F("Réacteur désactivé."));
     }     
   } else if (command == "help") {
-    Logger.println(F(""));
-    Logger.println(F("  specific"));
-    Logger.println(F(""));
+    Logger.println(F("coeur-reacteur statut"));
+    Logger.println(F("coeur-reacteur activer"));
+    Logger.println(F("coeur-reacteur desactiver"));
     BasicCommandInterpretor::interpret(command, parameters);
   } else {
     error = !BasicCommandInterpretor::interpret(command, parameters);

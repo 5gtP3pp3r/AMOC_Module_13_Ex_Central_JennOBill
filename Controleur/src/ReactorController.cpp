@@ -17,10 +17,7 @@ void ReactorController::getURL() {
 }
 
 String ReactorController::getReactorState() const {
-    //return m_reactorState.substring(9,14);
-    StaticJsonDocument<128> document;
-    return document["etat"].as<String>();
-    Serial.println(document["etat"].as<String>());
+    return m_reactorState.substring(9,14);
 }
 
 void ReactorController::getReactorStateAPI() {
@@ -34,7 +31,7 @@ void ReactorController::getReactorStateAPI() {
         this->m_reactorState = http.getString();
         if (this->m_lastState != this->m_reactorState)
         {
-            Serial.println("État réacteur mis à jour : " + this->m_reactorState);
+            Serial.println("État réacteur mis à jour : " + this->m_reactorState.substring(9,14));
         }
         this->m_lastState = this->m_reactorState;
     } else {

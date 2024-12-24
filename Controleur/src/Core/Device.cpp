@@ -1,31 +1,22 @@
 #include "Core/Device.h"
 
 #include <Wire.h>
-#ifdef ESP32
 #include <WiFi.h>
-#endif
 
 #include "Log/Logger.h"
-
 #include "Core/StringUtil.h"
 
 // SOURCE: \O/ PIFOU!! https://github.com/PiFou86/420-W48-SF-Utilitaires-Demo
+// Modifieé pour ignorer SimpleCollection et arduino uno.
 
 String Device::getId() {
-#ifdef ESP32
   uint32_t macPart = ESP.getEfuseMac() & 0xFFFFFFFF;
   return String(macPart, HEX);
-#elif ARDUINO_AVR_UNO
-  return String("Undefined");
-#else
-  #error "Unsupported platform";
-#endif
-
 }
 
-SimpleCollection<uint16_t> Device::getI2CAddresses() {
+std::vector<uint16_t> Device::getI2CAddresses() {
   byte error, address;
-  SimpleCollection<uint16_t> i2cAddresses;
+  std::vector<uint16_t> i2cAddresses;
 
   Logger.infoln(F("Scanning I2C devices..."));
 
@@ -58,7 +49,6 @@ SimpleCollection<uint16_t> Device::getI2CAddresses() {
   return i2cAddresses;
 }
 
-#ifdef ESP32
 std::vector<WiFiNetwork> Device::getWiFiNetworks() {
   std::vector<WiFiNetwork> networks;
   WiFi.scanNetworks();
@@ -72,4 +62,4 @@ std::vector<WiFiNetwork> Device::getWiFiNetworks() {
   }
   return networks;
 }
-#endif
+

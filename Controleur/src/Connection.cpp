@@ -29,22 +29,26 @@ void Connection::tick() {
 void Connection::connectToNetwork() {
 
   bool connected = false;
-  
-   for (uint8_t network = 0; network < NB_NETWORK && !connected ; ++network){
-    uint8_t nbTry = 0;
+  uint8_t nbLoopTry = 0;
+  if (nbLoopTry >= NB_TRY_MAX) {
+    Serial.println(NB_TRY_MAX + " essais de connexions échouées, revoir les valeurs de config.h ou réessayer plus tard.");
+  }
+
+   for (uint8_t network = 0; network < NB_NETWORK && nbLoopTry < NB_TRY_MAX && !connected; ++network) {
+    uint8_t nbConnectionTry = 0;
     Serial.print("Connexion au réseau WiFi: ");
     Serial.println(ssidList[network]);
     WiFi.begin(ssidList[network], passwordList[network]);
-
     Serial.print("Connexion: [");
-    while (nbTry < NB_TRY_MAX && WiFi.status() != WL_CONNECTED) {
+
+    while (nbConnectionTry < NB_TRY_MAX && WiFi.status() != WL_CONNECTED) {
       delay(500);
       Serial.print("=");
-      ++nbTry;
+      ++nbConnectionTry;
     }
     Serial.print("]");
     Serial.println("");
-
+    
     if (WiFi.status() == WL_CONNECTED) {
       this->m_url = urlList[network];
       Serial.print("Connecté au réseau WiFi: ");
@@ -53,10 +57,10 @@ void Connection::connectToNetwork() {
       Serial.println(WiFi.localIP());
       Serial.println("");
       connected = true;
-    }
-    else {
+    } else {
       Serial.print("Échec de connexion au réseau: ");
       Serial.println(ssidList[network]);
+      ++nbLoopTry;
     }
   }  
 }
